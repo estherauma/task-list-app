@@ -1,0 +1,109 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Tasks</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Tasks</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Add Task Form -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Add Task</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Task Title</ion-label>
+        <ion-input [(ngModel)]="newTask.title" placeholder="Enter title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Description</ion-label>
+        <ion-input [(ngModel)]="newTask.description" placeholder="Enter description"></ion-input>
+      </ion-item>
+      <ion-button expand="block" (click)="addTask()" style="margin-top: 12px">
+        <ion-icon slot="start" name="add-outline"></ion-icon>
+        Add Task
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Tasks Table -->
+  <ion-card *ngIf="tasks.length > 0">
+    <ion-card-header>
+      <ion-card-title>All Tasks</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="ion-no-padding">
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Done</th>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let task of tasks" [class.completed-row]="task.completed">
+              <td class="center">
+                <ion-checkbox [checked]="task.completed" (ionChange)="toggleComplete(task)"></ion-checkbox>
+              </td>
+              <td [class.completed]="task.completed">{{ task.title }}</td>
+              <td [class.completed]="task.completed">{{ task.description }}</td>
+              <td class="actions">
+                <ion-button fill="clear" color="primary" size="small" (click)="openEditForm(task)">
+                  <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+                </ion-button>
+                <ion-button fill="clear" color="danger" size="small" (click)="deleteTask(task.id)">
+                  <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                </ion-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-note *ngIf="tasks.length === 0" style="display: block; text-align: center; padding: 20px">
+    No tasks yet. Add one above!
+  </ion-note>
+
+  <!-- Edit Modal -->
+  <ion-modal [isOpen]="showEditModal" (didDismiss)="cancelEdit()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Edit Task</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="cancelEdit()">Cancel</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding" *ngIf="editingTask">
+        <ion-item>
+          <ion-label position="floating">Task Title</ion-label>
+          <ion-input [(ngModel)]="editingTask.title"></ion-input>
+        </ion-item>
+        <ion-item style="margin-top: 8px">
+          <ion-label position="floating">Description</ion-label>
+          <ion-input [(ngModel)]="editingTask.description"></ion-input>
+        </ion-item>
+        <ion-item style="margin-top: 8px">
+          <ion-label>Completed</ion-label>
+          <ion-checkbox slot="end" [(ngModel)]="editingTask.completed"></ion-checkbox>
+        </ion-item>
+        <ion-button expand="block" (click)="saveEdit()" style="margin-top: 24px">
+          <ion-icon slot="start" name="checkmark-outline"></ion-icon>
+          Save Changes
+        </ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+</ion-content>

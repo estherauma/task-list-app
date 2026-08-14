@@ -10,4 +10,27 @@
       <ion-title size="large">add-task</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Add Task</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+  <ion-item>
+    <ion-label position="floating">Task Title</ion-label>
+    <ion-input [(ngModel)]="newTask.title"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Task Description</ion-label>
+    <ion-input [(ngModel)]="newTask.description"></ion-input>
+  </ion-item>   
+  <ion-item>
+    <ion-label position="floating">Task Due Date</ion-label>
+    <ion-select [(ngModel)]="newTask.completed">
+      <ion-select-option [value]="true">Completed</ion-select-option>
+      <ion-select-option [value]="false">Not Completed</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-button expand="full" (click)="addTask()">Add Task</ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
