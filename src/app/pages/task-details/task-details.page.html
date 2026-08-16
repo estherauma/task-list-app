@@ -1,0 +1,68 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>task-details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">task-details</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Card Title</ion-card-title>
+      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-label>Task ID: {{ task?.id }}</ion-label><br>
+      <ion-label>Task Title: {{ task?.title }}</ion-label><br>
+      <ion-label>Task Description: {{ task?.description }}</ion-label><br>
+      <ion-label>Task Date: {{ task?.date }}</ion-label><br>
+      <ion-label>Task Completed: {{ task.completed ? 'Yes' : 'No' }}</ion-label>
+    </ion-card-content>
+
+    <ion-button (click)="goBack()">Back</ion-button>
+    <ion-button color="primary" (click)="openEditForm(task)">Edit</ion-button>
+    <ion-button color="danger" (click)="deleteTask(task.id)">Delete</ion-button>
+  </ion-card>
+
+  <!-- Edit Modal -->
+  <ion-modal [isOpen]="showEditModal" (didDismiss)="cancelEdit()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Edit Task</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="cancelEdit()">Cancel</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding" *ngIf="editingTask">
+        <ion-item>
+          <ion-label position="floating">Task Title</ion-label>
+          <ion-input [(ngModel)]="editingTask.title"></ion-input>
+        </ion-item>
+        <ion-item style="margin-top: 8px">
+          <ion-label position="floating">Description</ion-label>
+          <ion-input [(ngModel)]="editingTask.description"></ion-input>
+        </ion-item>
+        <ion-item style="margin-top: 8px">
+          <ion-label>Completed</ion-label>
+          <ion-checkbox slot="end" [(ngModel)]="editingTask.completed"></ion-checkbox>
+        </ion-item>
+        <ion-button expand="block" (click)="saveEdit()" style="margin-top: 24px">
+          <ion-icon slot="start" name="checkmark-outline"></ion-icon>
+          Save Changes
+        </ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <ion-note *ngIf="task === null">
+    Task not found.
+  </ion-note>
+</ion-content>

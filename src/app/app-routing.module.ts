@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'tasks',
     loadChildren: () => import('./pages/tasks/tasks.module').then( m => m.TasksPageModule)
+  },
+  {
+    path: 'task-details/:id',
+    loadChildren: () => import('./pages/task-details/task-details.module').then( m => m.TaskDetailsPageModule)
   }
 ];
 

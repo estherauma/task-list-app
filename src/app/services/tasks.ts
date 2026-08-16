@@ -83,4 +83,17 @@ export class Tasks {
     closeDatePicker() {
      this.isDatePickerOpen = false;
     }
+
+    async getTaskByID(taskId: number): Promise<Task | null> {
+      await this.ready();
+      const tasks: Task[] = await this.storage.get(TASKS_KEY);
+      const task = (tasks || []).find(t => t.id === taskId);
+      return task || null;
+    }
+
+    goBack() {
+      window.history.back();
+    }
+
+    
   }

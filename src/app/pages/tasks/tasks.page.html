@@ -32,14 +32,18 @@
               <td class="center">
                 <ion-checkbox [checked]="task.completed" (ionChange)="toggleComplete(task)"></ion-checkbox>
               </td>
-              <td [class.completed]="task.completed">{{ task.title }}</td>
+              <td [class.completed]="task.completed">
+                <a [routerLink]="['/task-details', task.id]">
+                  {{ task.title }}
+                </a>
+              </td>
               <td [class.completed]="task.completed">{{ task.description }}</td>
               <td class="actions">
-                <ion-button fill="clear" color="primary" size="small" (click)="openEditForm(task)">
-                  <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+                <ion-button color="primary" (click)="openEditForm(task)">
+                  Edit
                 </ion-button>
-                <ion-button fill="clear" color="danger" size="small" (click)="deleteTask(task.id)">
-                  <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                <ion-button color="danger" (click)="deleteTask(task.id)">
+                  Delete
                 </ion-button>
               </td>
             </tr>
