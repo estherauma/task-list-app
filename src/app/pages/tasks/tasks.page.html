@@ -11,27 +11,6 @@
     </ion-toolbar>
   </ion-header>
 
-  <!-- Add Task Form -->
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Add Task</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label position="floating">Task Title</ion-label>
-        <ion-input [(ngModel)]="newTask.title" placeholder="Enter title"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Description</ion-label>
-        <ion-input [(ngModel)]="newTask.description" placeholder="Enter description"></ion-input>
-      </ion-item>
-      <ion-button expand="block" (click)="addTask()" style="margin-top: 12px">
-        <ion-icon slot="start" name="add-outline"></ion-icon>
-        Add Task
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
-
   <!-- Tasks Table -->
   <ion-card *ngIf="tasks.length > 0">
     <ion-card-header>
@@ -71,7 +50,7 @@
   </ion-card>
 
   <ion-note *ngIf="tasks.length === 0" style="display: block; text-align: center; padding: 20px">
-    No tasks yet. Add one above!
+    No tasks yet.
   </ion-note>
 
   <!-- Edit Modal -->

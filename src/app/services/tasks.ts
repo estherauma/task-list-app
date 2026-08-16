@@ -15,61 +15,61 @@ const TASKS_KEY = 'my-tasks';
 })
 export class Tasks {
 
-  private storageReady: Promise<void>;
+  private storageReady: Promise<Storage>;
 
   constructor(private storage: Storage) {
-    this.storageReady = this.storage.create().then(() => {});
+    this.storageReady = this.storage.create();
   }
 
-  private ready(): Promise<void> {
+  private ready(): Promise<Storage> {
     return this.storageReady;
   }
 
-    addTask(task: Task): Promise<any> {
-      return this.ready().then(() => this.storage.get(TASKS_KEY)).then((tasks: Task[]) => {
-        const existing: Task[] = tasks || [];
-        task.id = existing.length > 0 ? Math.max(...existing.map(t => t.id)) + 1 : 1;
-        existing.push(task);
-        return this.storage.set(TASKS_KEY, existing);
-      });
+    async addTask(task: Task): Promise<Task> {
+      await this.ready();
+      const tasks: Task[] = await this.storage.get(TASKS_KEY);
+      const existing: Task[] = tasks || [];
+      task.id = existing.length > 0 ? Math.max(...existing.map(t => t.id)) + 1 : 1;
+      existing.push(task);
+      await this.storage.set(TASKS_KEY, existing);
+      return task;
     }
 
-    getTasks(): Promise<Task[]> {
-      return this.ready().then(() => this.storage.get(TASKS_KEY));
+    async getTasks(): Promise<Task[]> {
+      await this.ready();
+      const tasks = await this.storage.get(TASKS_KEY);
+      return tasks || [];
     }
 
-    updateTask(task: Task): Promise<any> {
-      return this.ready().then(() => this.storage.get(TASKS_KEY)).then((tasks: Task[]) => {
-        if (!tasks || tasks.length === 0) {
-          return null;
+    async updateTask(task: Task): Promise<any> {
+      await this.ready();
+      const tasks: Task[] = await this.storage.get(TASKS_KEY);
+      if (!tasks || tasks.length === 0) {
+        return null;
+      }
+      const newTasks: Task[] = [];
+      for (let i of tasks) {
+        if (i.id === task.id) {
+          newTasks.push(task);
+        } else {
+          newTasks.push(i);
         }
-        let newTasks: Task[] = [];
-        for (let i of tasks) {
-          if (i.id === task.id) {
-            newTasks.push(task);
-          } else {
-            newTasks.push(i);
-          }
-        }
-        return this.storage.set(TASKS_KEY, newTasks);
-      });
+      }
+      return this.storage.set(TASKS_KEY, newTasks);
     }
 
-    deleteTask(taskId: number): Promise<Task>{
-      return this.ready().then(() => this.storage.get(TASKS_KEY)).then((tasks: Task[]) => {
-        if (!tasks || tasks.length === 0) {
-          return null;
+    async deleteTask(taskId: number): Promise<void>{
+      await this.ready();
+      const tasks: Task[] = await this.storage.get(TASKS_KEY);
+      if (!tasks || tasks.length === 0) {
+        return;
+      }
+      const toKeep: Task[] = [];
+      for (let i of tasks) {
+        if (i.id !== taskId) {
+          toKeep.push(i);
         }
-        let toKeep: Task[] = [];
-        for (let i of tasks) {
-          if (i.id !== taskId) {
-            toKeep.push(i);
-          }
-        }
-        return this.storage.set(TASKS_KEY, toKeep);
-      });
+      }
+      return this.storage.set(TASKS_KEY, toKeep);
     }
-
-
-  
 }
