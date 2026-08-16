@@ -13,7 +13,7 @@ export class AddTaskPage implements OnInit {
   newTask: Task = <Task>{};
 
 
-  constructor(private tasksService: Tasks, private toastController: ToastController) { }
+  constructor(public tasksService: Tasks, private toastController: ToastController) { }
 
   ngOnInit() {
   }
@@ -53,6 +53,14 @@ export class AddTaskPage implements OnInit {
       duration: 2000
     });
     toast.present();
+  }
+
+  openDatePicker() {
+    this.tasksService.openDatePicker();
+  }
+
+  closeDatePicker() {
+    this.tasksService.closeDatePicker();
   }
 
 }

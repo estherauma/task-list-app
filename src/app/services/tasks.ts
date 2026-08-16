@@ -5,6 +5,7 @@ export interface Task {
   id: number;
   title: string;
   description: string;
+  date: string;
   completed: boolean;
 }
 
@@ -20,6 +21,8 @@ export class Tasks {
   constructor(private storage: Storage) {
     this.storageReady = this.storage.create();
   }
+
+  isDatePickerOpen: boolean = false;
 
   private ready(): Promise<Storage> {
     return this.storageReady;
@@ -72,4 +75,12 @@ export class Tasks {
       }
       return this.storage.set(TASKS_KEY, toKeep);
     }
-}
+
+    openDatePicker() {
+     this.isDatePickerOpen = true;
+    }
+
+    closeDatePicker() {
+     this.isDatePickerOpen = false;
+    }
+  }
