@@ -26,17 +26,17 @@ export class TasksPage implements OnInit {
 
   addTask() {
     if (!this.newTask.title) {
-      this.showToast('Title is required.');
+      this.showToast('Title is required.', 'danger');
       return;
     }
     if (!this.newTask.description) {
-      this.showToast('Description is required.');
+      this.showToast('Description is required.', 'danger');
       return;
     }
     this.tasksService.addTask(this.newTask).then(() => {
       this.newTask = <Task>{};
       this.loadTasks();
-      this.showToast('Task added successfully.');
+      this.showToast('Task added successfully.', 'success');
     });
   }
 
@@ -61,16 +61,16 @@ export class TasksPage implements OnInit {
       return;
     }
     if (!this.editingTask.title) {
-      this.showToast('Title is required.');
+      this.showToast('Title is required.', 'danger');
       return;
     }
     if (!this.editingTask.description) {
-      this.showToast('Description is required.');
+      this.showToast('Description is required.','danger');
       return;
     }
     this.tasksService.updateTask(this.editingTask).then(() => {
       this.loadTasks();
-      this.showToast('Task updated successfully.');
+      this.showToast('Task updated successfully.', 'success');
       this.cancelEdit();
     });
   }
@@ -84,16 +84,17 @@ export class TasksPage implements OnInit {
 
   deleteTask(taskId: number) {
     this.tasksService.deleteTask(taskId).then(() => {
-      this.showToast('Task deleted successfully.');
+      this.showToast('Task deleted successfully.','success');
       this.loadTasks();
     });
   }
 
-  async showToast(message: string) {
+  async showToast(message: string, color: string) {
     const toast = await this.toastController.create({
       message,
       duration: 2000,
-      position: 'top'
+      position: 'top',
+      color: color
     });
     toast.present();
   }

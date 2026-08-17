@@ -19,13 +19,13 @@ export class AddTaskPage implements OnInit {
   }
   addTask() {
     if (!this.newTask.title || !this.newTask.description) {
-      this.showToast('Please enter a title and description for the task.');
+      this.showToast('Please enter a title and description for the task.', 'danger');
       return;
     }
 
     this.tasksService.addTask(this.newTask).then(() => {
       this.newTask = <Task>{};
-      this.showToast('Task added successfully.');
+      this.showToast('Task added successfully.', 'success');
     });
   }
 
@@ -37,20 +37,22 @@ export class AddTaskPage implements OnInit {
 
   updateTask(task: Task) {
     this.tasksService.updateTask(task).then(() => {
-      this.showToast('Task updated successfully.');
+      this.showToast('Task updated successfully.', 'success');
     });
   }
 
   deleteTask(taskId: number) {
     this.tasksService.deleteTask(taskId).then(() => {
-      this.showToast('Task deleted successfully.');
+      this.showToast('Task deleted successfully.', 'success');
     });
   }
 
-  async showToast(message: string) {
+  async showToast(message: string, color: string ) {
     const toast = await this.toastController.create({
       message: message,
-      duration: 2000
+      duration: 2000,
+      color: color,
+      position: 'top'
     });
     toast.present();
   }

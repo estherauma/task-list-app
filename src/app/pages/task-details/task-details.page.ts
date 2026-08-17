@@ -15,13 +15,15 @@ export class TaskDetailsPage implements OnInit {
   showEditModal = false;
   constructor(public tasksService: Tasks, private route: ActivatedRoute, private toastController: ToastController) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.tasksService.getTaskByID(id).then((task: Task | null) => {
-      if (task) {
-        this.task = task;
-      }
-    });
+    const task = await this.tasksService.getTaskByID(id);
+    if (task) {
+      this.task = task;
+    } else {
+      this.showToast('Task not found.', 'danger');
+      this.tasksService.goBack();
+    }
   }
 
   goBack() {
@@ -39,30 +41,33 @@ export class TaskDetailsPage implements OnInit {
   }
 
   saveEdit() {
-    if (!this.editingTask) return;
+    if (!this.editingTask) {
+      return;
+    }
     if (!this.editingTask.title || !this.editingTask.description) {
-      this.showToast('Title and description are required.');
+      this.showToast('Title and description are required.', 'danger');
       return;
     }
     this.tasksService.updateTask(this.editingTask).then(() => {
       this.task = this.editingTask!;
-      this.showToast('Task updated successfully.');
+      this.showToast('Task updated successfully.', 'success');
       this.cancelEdit();
     });
   }
 
-  async showToast(message: string) {
+  async showToast(message: string,color: string ) {
     const toast = await this.toastController.create({
       message,
       duration: 2000,
-      position: 'bottom'
+      position: 'top',
+      color: color
     });
     toast.present();
   }
 
   deleteTask(taskId: number) {
     this.tasksService.deleteTask(taskId).then(() => {
-      this.showToast('Task deleted successfully.');
+      this.showToast('Task deleted successfully.', 'success');
       this.goBack();
     });
   }

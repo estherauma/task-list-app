@@ -17,11 +17,9 @@
       <ion-card-title>All Tasks</ion-card-title>
     </ion-card-header>
     <ion-card-content class="ion-no-padding">
-      <div class="task-button">
         <ion-button color="primary" routerLink="/add-task">
-          + Add Task
+          Add Task
         </ion-button>
-      </div>
       <div class="table-wrapper">
         <table>
           <thead>
@@ -66,9 +64,6 @@
       <ion-header>
         <ion-toolbar>
           <ion-title>Edit Task</ion-title>
-          <ion-buttons slot="end">
-            <ion-button (click)="cancelEdit()">Cancel</ion-button>
-          </ion-buttons>
         </ion-toolbar>
       </ion-header>
       <ion-content class="ion-padding" *ngIf="editingTask">
@@ -80,13 +75,19 @@
           <ion-label position="floating">Description</ion-label>
           <ion-input [(ngModel)]="editingTask.description"></ion-input>
         </ion-item>
+        <ion-item>
+          <ion-label position="floating">Task Date</ion-label>
+          <ion-input [(ngModel)]="editingTask.date"></ion-input>
+        </ion-item>
         <ion-item style="margin-top: 8px">
           <ion-label>Completed</ion-label>
           <ion-checkbox slot="end" [(ngModel)]="editingTask.completed"></ion-checkbox>
         </ion-item>
-        <ion-button expand="block" (click)="saveEdit()" style="margin-top: 24px">
-          <ion-icon slot="start" name="checkmark-outline"></ion-icon>
+        <ion-button (click)="saveEdit()" style="margin-top: 24px">
           Save Changes
+        </ion-button>
+        <ion-button (click)="cancelEdit()" style="margin-top: 24px" color="medium">
+          Cancel
         </ion-button>
       </ion-content>
     </ng-template>
