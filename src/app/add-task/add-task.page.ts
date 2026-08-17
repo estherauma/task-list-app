@@ -63,4 +63,7 @@ export class AddTaskPage implements OnInit {
     this.tasksService.closeDatePicker();
   }
 
+  goBack() {
+    this.tasksService.goBack();
+  }
 }

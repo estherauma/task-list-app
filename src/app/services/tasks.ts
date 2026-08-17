@@ -94,6 +94,4 @@ export class Tasks {
     goBack() {
       window.history.back();
     }
-
-    
   }

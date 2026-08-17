@@ -17,13 +17,17 @@
       <ion-card-title>All Tasks</ion-card-title>
     </ion-card-header>
     <ion-card-content class="ion-no-padding">
+      <div class="task-button">
+        <ion-button color="primary" routerLink="/add-task">
+          + Add Task
+        </ion-button>
+      </div>
       <div class="table-wrapper">
         <table>
           <thead>
             <tr>
               <th>Done</th>
               <th>Title</th>
-              <th>Description</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -37,7 +41,6 @@
                   {{ task.title }}
                 </a>
               </td>
-              <td [class.completed]="task.completed">{{ task.description }}</td>
               <td class="actions">
                 <ion-button color="primary" (click)="openEditForm(task)">
                   Edit
@@ -53,7 +56,7 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-note *ngIf="tasks.length === 0" style="display: block; text-align: center; padding: 20px">
+  <ion-note *ngIf="tasks.length === 0" class='note'>
     No tasks yet.
   </ion-note>
 

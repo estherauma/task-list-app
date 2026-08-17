@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Task, Tasks } from '../../services/tasks';
-import { ToastController, Platform } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tasks',
@@ -15,17 +15,22 @@ export class TasksPage implements OnInit {
   editingTask: Task | null = null;
   showEditModal = false;
 
-  constructor(private tasksService: Tasks, private toastController: ToastController, private platform: Platform) {
-    this.platform.ready().then(() => {
-      this.loadTasks();
-    });
+  constructor(
+    private tasksService: Tasks, 
+    private toastController: ToastController) {
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loadTasks();
+  }
 
   addTask() {
-    if (!this.newTask.title || !this.newTask.description) {
-      this.showToast('Please enter a title and description for the task.');
+    if (!this.newTask.title) {
+      this.showToast('Title is required.');
+      return;
+    }
+    if (!this.newTask.description) {
+      this.showToast('Description is required.');
       return;
     }
     this.tasksService.addTask(this.newTask).then(() => {
@@ -52,9 +57,15 @@ export class TasksPage implements OnInit {
   }
 
   saveEdit() {
-    if (!this.editingTask) return;
-    if (!this.editingTask.title || !this.editingTask.description) {
-      this.showToast('Title and description are required.');
+    if (!this.editingTask) {
+      return;
+    }
+    if (!this.editingTask.title) {
+      this.showToast('Title is required.');
+      return;
+    }
+    if (!this.editingTask.description) {
+      this.showToast('Description is required.');
       return;
     }
     this.tasksService.updateTask(this.editingTask).then(() => {
@@ -82,9 +93,8 @@ export class TasksPage implements OnInit {
     const toast = await this.toastController.create({
       message,
       duration: 2000,
-      position: 'bottom'
+      position: 'top'
     });
     toast.present();
   }
-
 }
