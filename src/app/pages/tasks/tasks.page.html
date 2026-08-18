@@ -32,7 +32,7 @@
                 <ion-checkbox [checked]="task.completed" (ionChange)="toggleComplete(task)"></ion-checkbox>
               </td>
               <td [class.completed]="task.completed">
-                <a [routerLink]="['/task-details', task.id]">
+                <a routerLink='/task-details/{{ task.id }}'>
                   {{ task.title }}
                 </a>
               </td>

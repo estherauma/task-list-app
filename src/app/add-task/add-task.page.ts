@@ -9,9 +9,7 @@ import { ToastController } from '@ionic/angular';
 })
 export class AddTaskPage implements OnInit {
 
-  tasks: Task[] = [];
   newTask: Task = <Task>{};
-
 
   constructor(public tasksService: Tasks, private toastController: ToastController) { }
 
@@ -26,24 +24,6 @@ export class AddTaskPage implements OnInit {
     this.tasksService.addTask(this.newTask).then(() => {
       this.newTask = <Task>{};
       this.showToast('Task added successfully.', 'success');
-    });
-  }
-
-  loadTasks() {
-    this.tasksService.getTasks().then((tasks: Task[]) => {
-      this.tasks = tasks || [];
-    });
-  }
-
-  updateTask(task: Task) {
-    this.tasksService.updateTask(task).then(() => {
-      this.showToast('Task updated successfully.', 'success');
-    });
-  }
-
-  deleteTask(taskId: number) {
-    this.tasksService.deleteTask(taskId).then(() => {
-      this.showToast('Task deleted successfully.', 'success');
     });
   }
 
