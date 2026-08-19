@@ -23,20 +23,22 @@
           </ion-item>
           <ion-item button (click)="openDatePicker()">
           <ion-label>Task Date</ion-label>
-          <ion-text slot="end">
+          <ion-text class="task-date">
             {{ newTask.date ? newTask.date  : 'Select date' }}
           </ion-text>
           </ion-item>
           <ion-item>
             <ion-label position="floating">Status</ion-label>
-            <ion-select [(ngModel)]="newTask.status" placeholder="Select status">
+            <ion-select [(ngModel)]="newTask.status" placeholder="Select status" class="select-status">
               <ion-select-option [value]="'completed'">Completed</ion-select-option>
               <ion-select-option [value]="'in_progress'">In progress</ion-select-option>
               <ion-select-option [value]="'not_started'">Not Started</ion-select-option>
             </ion-select>
           </ion-item>
-          <ion-button type="submit">Save</ion-button>
-          <ion-button (click)="goBack()" color="medium">Cancel</ion-button>
+          <div class="form-buttons">
+            <ion-button type="submit">Save</ion-button>
+            <ion-button (click)="goBack()" color="medium">Cancel</ion-button>
+          </div>
         </form>
       </ion-card-content>
   </ion-card>

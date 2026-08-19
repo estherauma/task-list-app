@@ -14,9 +14,12 @@
   <!-- Tasks Table -->
   <ion-card *ngIf="tasks.length > 0">
     <ion-card-content class="ion-no-padding">
+      <div class="add-task-button">
         <ion-button color="primary" routerLink="/add-task">
           Add Task
         </ion-button>
+      </div>
+        
       <div class="table-wrapper">
         <table>
           <thead>

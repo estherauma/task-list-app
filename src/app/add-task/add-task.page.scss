@@ -8,6 +8,11 @@ ion-button[color="medium"] {
   text-transform: initial;
 }
 
+ion-button[type="submit"] {
+  text-transform: initial;
+}
+
+
 .status-completed {
   color: var(--ion-color-success);
 }
@@ -16,4 +21,21 @@ ion-button[color="medium"] {
 }
 .status-not-started {
   color: var(--ion-color-medium);
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.select-status {
+    margin-top: 5px;
+}
+
+.task-date {
+    display: block;
+    margin-top: 5px;
 }

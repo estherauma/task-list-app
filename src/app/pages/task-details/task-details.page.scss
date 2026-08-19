@@ -7,9 +7,14 @@ ion-button[color="danger"] {
 ion-button[color="medium"] {
   text-transform: initial;
 }
+ion-button[type="submit"] {
+  text-transform: initial;
+}
 
 .form-buttons {
   display: flex;
   justify-content: flex-end;
   margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
 }
