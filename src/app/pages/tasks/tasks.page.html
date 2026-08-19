@@ -50,10 +50,15 @@
       </div>
     </ion-card-content>
   </ion-card>
-
-  <ion-note *ngIf="tasks.length === 0" class='note'>
-    No tasks yet.
-  </ion-note>
+ <div class="flex-center" *ngIf="tasks.length === 0">
+  <ion-label lines="none">
+    No tasks yet. Click the button below to add a task.
+  </ion-label>
+  <br>
+  <ion-button color="primary" routerLink="/add-task">
+    Add Task
+  </ion-button>
+ </div>
 
   <!-- Edit Modal -->
   <ion-modal [isOpen]="showEditModal" (didDismiss)="cancelEdit()">

@@ -57,3 +57,12 @@ ion-button[color="danger"] {
 ion-button[color="medium"] {
   text-transform: initial;
 }
+
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
+}
