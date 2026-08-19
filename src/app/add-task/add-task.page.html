@@ -12,43 +12,40 @@
   </ion-header>
   <ion-card>
       <ion-card-content>
-        <ion-item>
-          <ion-label position="floating">Task Title</ion-label>
-          <ion-input [(ngModel)]="newTask.title"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Task Description</ion-label>
-          <ion-input [(ngModel)]="newTask.description"></ion-input>
-        </ion-item>
-        <ion-item button (click)="openDatePicker()">
-        <ion-label>Task Date</ion-label>
-        <ion-text slot="end">
-          {{ newTask.date ? (newTask.date | date: 'MMM dd, yyyy') : 'Select date' }}
-        </ion-text>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Completed</ion-label>
-          <ion-select [(ngModel)]="newTask.completed" placeholder="Select status">
-            <ion-select-option [value]="true">Completed</ion-select-option>
-            <ion-select-option [value]="false">Not Completed</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-button (click)="addTask()">Save</ion-button>
-        <ion-button (click)="goBack()" color="medium">Cancel</ion-button>
+        <form (ngSubmit)="addTask()">
+          <ion-item>
+            <ion-label position="floating">Task Title</ion-label>
+            <ion-input [(ngModel)]="newTask.title"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Task Description</ion-label>
+            <ion-input [(ngModel)]="newTask.description"></ion-input>
+          </ion-item>
+          <ion-item button (click)="openDatePicker()">
+          <ion-label>Task Date</ion-label>
+          <ion-text slot="end">
+            {{ newTask.date ? newTask.date  : 'Select date' }}
+          </ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Completed</ion-label>
+            <ion-select [(ngModel)]="newTask.completed" placeholder="Select status">
+              <ion-select-option [value]="true">Completed</ion-select-option>
+              <ion-select-option [value]="false">Not Completed</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-button type="submit">Save</ion-button>
+          <ion-button (click)="goBack()" color="medium">Cancel</ion-button>
+        </form>
       </ion-card-content>
   </ion-card>
-  <ion-modal [isOpen]="tasksService.isDatePickerOpen" (didDismiss)="closeDatePicker()">
+  <ion-modal [isOpen]="tasksService.isDatePickerOpen" (didDismiss)="closeDatePicker()" cssClass="date-picker-modal">
     <ng-template>
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Select Date</ion-title>
-          <ion-buttons slot="end">
-            <ion-button (click)="closeDatePicker()">Close</ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
       <ion-content>
         <ion-datetime [(ngModel)]="newTask.date" displayFormat="MMM DD, YYYY"></ion-datetime>
+        <ion-button (click)="closeDatePicker()" style="margin-top: 8px" color="medium">
+          Close
+        </ion-button>
       </ion-content>
     </ng-template>
   </ion-modal>

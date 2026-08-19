@@ -47,3 +47,10 @@
   color: var(--ion-color-light) !important;
   border-radius: 8px !important;
 }
+
+.date-picker-modal {
+  --max-height: 80vh;
+  --width: min(92vw, 380px);
+  margin-left: 7vw;
+  
+}
