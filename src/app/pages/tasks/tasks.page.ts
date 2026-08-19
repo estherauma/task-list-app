@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Task, Tasks } from '../../services/tasks';
-import { ToastController } from '@ionic/angular';
+import { ToastController,AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tasks',
@@ -17,7 +17,8 @@ export class TasksPage {
 
   constructor(
     private tasksService: Tasks, 
-    private toastController: ToastController) {
+    private toastController: ToastController,
+    private alertController: AlertController) {
   }
 
   ionViewWillEnter() {
@@ -66,11 +67,31 @@ export class TasksPage {
     });
   }
 
-  deleteTask(taskId: number) {
-    this.tasksService.deleteTask(taskId).then(() => {
-      this.showToast('Task deleted successfully.','success');
-      this.loadTasks();
+  deleteTask(task: Task) {
+    const alert = this.alertController.create({
+      header: 'Confirm Delete',
+      subHeader: `Are you sure you want to delete "${task.title}"?`,
+      message: `This action cannot be undone.`,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'alert-button-cancel',
+        },
+        {
+          text: 'Delete',
+          role: 'destructive',
+          cssClass: 'alert-button-delete',
+          handler: () => {
+            this.tasksService.deleteTask(task.id).then(() => {
+              this.showToast('Task deleted successfully.','success');
+              this.loadTasks();
+            });
+          }
+        }
+      ]
     });
+    alert.then(alertEl => alertEl.present());
   }
 
   async showToast(message: string, color: string) {
