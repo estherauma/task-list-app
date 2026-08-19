@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Task, Tasks } from '../services/tasks';
 import { ToastController } from '@ionic/angular';
 @Component({
@@ -11,7 +12,7 @@ export class AddTaskPage implements OnInit {
 
   newTask: Task = <Task>{};
 
-  constructor(public tasksService: Tasks, private toastController: ToastController) { }
+  constructor(public tasksService: Tasks, private toastController: ToastController, private router: Router) { }
 
   ngOnInit() {
   }
@@ -27,6 +28,7 @@ export class AddTaskPage implements OnInit {
     this.tasksService.addTask(this.newTask).then(() => {
       this.newTask = <Task>{};
       this.showToast('Task added successfully.', 'success');
+      this.router.navigate(['/tasks']);
     });
   }
 
