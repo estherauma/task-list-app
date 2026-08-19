@@ -24,22 +24,6 @@ export class TasksPage implements OnInit {
     this.loadTasks();
   }
 
-  addTask() {
-    if (!this.newTask.title) {
-      this.showToast('Title is required.', 'danger');
-      return;
-    }
-    if (!this.newTask.description) {
-      this.showToast('Description is required.', 'danger');
-      return;
-    }
-    this.tasksService.addTask(this.newTask).then(() => {
-      this.newTask = <Task>{};
-      this.loadTasks();
-      this.showToast('Task added successfully.', 'success');
-    });
-  }
-
   loadTasks() {
     this.tasksService.getTasks().then((tasks: Task[]) => {
       this.tasks = tasks || [];

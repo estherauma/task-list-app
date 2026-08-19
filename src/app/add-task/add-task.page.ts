@@ -20,7 +20,10 @@ export class AddTaskPage implements OnInit {
       this.showToast('Please enter a title and description for the task.', 'danger');
       return;
     }
-
+    
+    if (!this.newTask.date) {
+      this.newTask.date = new Date().toISOString();
+    }
     this.tasksService.addTask(this.newTask).then(() => {
       this.newTask = <Task>{};
       this.showToast('Task added successfully.', 'success');
