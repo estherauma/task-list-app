@@ -77,28 +77,40 @@
         </ion-toolbar>
       </ion-header>
       <ion-content class="ion-padding" *ngIf="editingTask">
-        <ion-item>
-          <ion-label position="floating">Task Title</ion-label>
-          <ion-input [(ngModel)]="editingTask.title"></ion-input>
-        </ion-item>
-        <ion-item style="margin-top: 8px">
-          <ion-label position="floating">Description</ion-label>
-          <ion-input [(ngModel)]="editingTask.description"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Task Date</ion-label>
-          <ion-input [(ngModel)]="editingTask.date"></ion-input>
-        </ion-item>
-        <ion-item style="margin-top: 8px">
-          <ion-label>Status</ion-label>
-          <ion-checkbox slot="end" [(ngModel)]="editingTask.status"></ion-checkbox>
-        </ion-item>
-        <ion-button (click)="saveEdit()" style="margin-top: 24px">
-          Save Changes
-        </ion-button>
-        <ion-button (click)="cancelEdit()" style="margin-top: 24px" color="medium">
-          Cancel
-        </ion-button>
+        <ion-card>
+          <ion-card-content>
+            <form (ngSubmit)="saveEdit()">
+              <ion-item>
+                <ion-label position="floating">Task Title</ion-label>
+                <ion-input [(ngModel)]="editingTask.title" name="title"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">Description</ion-label>
+                <ion-input [(ngModel)]="editingTask.description" name="description"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">Task Date</ion-label>
+                <ion-input [(ngModel)]="editingTask.date" name="date"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>Status</ion-label>
+                <ion-select  [(ngModel)]="editingTask.status" name="status">
+                  <ion-select-option value='completed'>Completed</ion-select-option>
+                  <ion-select-option value='in_progress'>In progress</ion-select-option>
+                  <ion-select-option value='not_started'>Not Started</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <div class="form-buttons">
+                <ion-button type="submit" color="primary">
+                  Save Changes
+                </ion-button>
+                <ion-button (click)="cancelEdit()" color="medium">
+                  Cancel
+                </ion-button>
+              </div>
+            </form>
+          </ion-card-content>
+        </ion-card>
       </ion-content>
     </ng-template>
   </ion-modal>

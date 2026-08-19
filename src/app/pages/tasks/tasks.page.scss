@@ -75,3 +75,9 @@ ion-button[color="medium"] {
 .status-not-started {
   color: var(--ion-color-medium);
 }
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}

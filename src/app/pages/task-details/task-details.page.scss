@@ -7,3 +7,9 @@ ion-button[color="danger"] {
 ion-button[color="medium"] {
   text-transform: initial;
 }
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
