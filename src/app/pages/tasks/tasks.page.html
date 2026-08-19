@@ -21,17 +21,25 @@
         <table>
           <thead>
             <tr>
-              <th>Done</th>
+              <th>Status</th>
               <th>Title</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let task of tasks" [class.completed-row]="task.completed">
+            <tr *ngFor="let task of tasks" [class.completed-row]="task.status">
               <td class="center">
-                <ion-checkbox [checked]="task.completed" (ionChange)="toggleComplete(task)"></ion-checkbox>
+                <ion-select [value]="task.status" 
+                (ionChange)="toggleComplete(task, $event)" 
+                [class.status-completed]="task.status === 'completed'" 
+                [class.status-in-progress]="task.status === 'in_progress'" 
+                [class.status-not-started]="task.status === 'not_started'">
+                  <ion-select-option value='completed'>Completed</ion-select-option>
+                  <ion-select-option value='in_progress'>In progress</ion-select-option>
+                  <ion-select-option value='not_started'>Not Started</ion-select-option>
+                </ion-select>
               </td>
-              <td [class.completed]="task.completed">
+              <td [class.status]="task.status">
                 <a routerLink='/task-details/{{ task.id }}'>
                   {{ task.title }}
                 </a>
@@ -82,8 +90,8 @@
           <ion-input [(ngModel)]="editingTask.date"></ion-input>
         </ion-item>
         <ion-item style="margin-top: 8px">
-          <ion-label>Completed</ion-label>
-          <ion-checkbox slot="end" [(ngModel)]="editingTask.completed"></ion-checkbox>
+          <ion-label>Status</ion-label>
+          <ion-checkbox slot="end" [(ngModel)]="editingTask.status"></ion-checkbox>
         </ion-item>
         <ion-button (click)="saveEdit()" style="margin-top: 24px">
           Save Changes

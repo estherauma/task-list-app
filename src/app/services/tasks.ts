@@ -6,7 +6,7 @@ export interface Task {
   title: string;
   description: string;
   date: string;
-  completed: boolean;
+  status: string;
 }
 
 const TASKS_KEY = 'my-tasks';

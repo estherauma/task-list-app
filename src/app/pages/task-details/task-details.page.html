@@ -20,7 +20,7 @@
     <ion-card-content>
       <ion-label>Task Description: {{ task.description }}</ion-label><br>
       <ion-label>Task Date: {{ task.date }}</ion-label><br>
-      <ion-label>Task Completed: {{ task.completed ? 'Yes' : 'No' }}</ion-label>
+      <ion-label>Task Status: {{ task.status === 'completed' ? 'Completed' : task.status === 'in_progress' ? 'In Progress' : 'Not Started' }}</ion-label>
     </ion-card-content>
 
     <ion-button (click)="goBack()" color="medium">Back</ion-button>
@@ -50,8 +50,12 @@
           <ion-input [(ngModel)]="editingTask.date"></ion-input>
         </ion-item>
         <ion-item style="margin-top: 8px">
-          <ion-label>Completed</ion-label>
-          <ion-checkbox slot="end" [(ngModel)]="editingTask.completed"></ion-checkbox>
+          <ion-label>Status</ion-label>
+          <ion-select [(ngModel)]="editingTask.status">
+            <ion-select-option [value]="'completed'">Completed</ion-select-option>
+            <ion-select-option [value]="'in_progress'">In progress</ion-select-option>
+            <ion-select-option [value]="'not_started'">Not Started</ion-select-option>
+          </ion-select>
         </ion-item>
         <ion-button (click)="saveEdit()" style="margin-top: 24px" color="primary">
           Save Changes

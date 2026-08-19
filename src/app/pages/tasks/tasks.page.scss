@@ -66,3 +66,12 @@ ion-button[color="medium"] {
   height: 100%;
   flex-direction: column;
 }
+.status-completed {
+  color: var(--ion-color-success);
+}
+.status-in-progress {
+  color: var(--ion-color-warning);
+}
+.status-not-started {
+  color: var(--ion-color-medium);
+}

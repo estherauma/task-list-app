@@ -60,8 +60,8 @@ export class TasksPage {
     });
   }
 
-  toggleComplete(task: Task) {
-    task.completed = !task.completed;
+  toggleComplete(task: Task, event: any) {
+    task.status = event.detail.value;
     this.tasksService.updateTask(task).then(() => {
       this.loadTasks();
     });
