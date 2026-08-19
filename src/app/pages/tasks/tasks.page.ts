@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Task, Tasks } from '../../services/tasks';
 import { ToastController } from '@ionic/angular';
 
@@ -8,7 +8,7 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./tasks.page.scss'],
   standalone: false
 })
-export class TasksPage implements OnInit {
+export class TasksPage {
 
   tasks: Task[] = [];
   newTask: Task = <Task>{};
@@ -20,7 +20,7 @@ export class TasksPage implements OnInit {
     private toastController: ToastController) {
   }
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.loadTasks();
   }
 
