@@ -53,6 +53,10 @@ export class TasksPage {
       this.showToast('Description is required.','danger');
       return;
     }
+    if (!this.editingTask.status) {
+      this.showToast('Status is required.','danger');
+      return;
+    }
     this.tasksService.updateTask(this.editingTask).then(() => {
       this.loadTasks();
       this.showToast('Task updated successfully.', 'success');

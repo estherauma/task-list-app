@@ -17,8 +17,18 @@ export class AddTaskPage implements OnInit {
   ngOnInit() {
   }
   addTask() {
-    if (!this.newTask.title || !this.newTask.description) {
-      this.showToast('Please enter a title and description for the task.', 'danger');
+    if (!this.newTask.title) {
+      this.showToast('Please enter a title for the task.', 'danger');
+      return;
+    }
+
+    if (!this.newTask.description) {
+      this.showToast('Please enter a description for the task.', 'danger');
+      return;
+    }
+
+    if (!this.newTask.status) {
+      this.showToast('Please select a status for the task.', 'danger');
       return;
     }
     

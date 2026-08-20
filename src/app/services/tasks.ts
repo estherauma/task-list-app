@@ -44,7 +44,7 @@ export class Tasks {
       return tasks || [];
     }
 
-    async updateTask(task: Task): Promise<any> {
+    async updateTask(task: Task): Promise<Task | null> {
       await this.ready();
       const tasks: Task[] = await this.storage.get(TASKS_KEY);
       if (!tasks || tasks.length === 0) {

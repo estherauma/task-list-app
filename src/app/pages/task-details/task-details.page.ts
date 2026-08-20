@@ -44,8 +44,16 @@ export class TaskDetailsPage implements OnInit {
     if (!this.editingTask) {
       return;
     }
-    if (!this.editingTask.title || !this.editingTask.description) {
-      this.showToast('Title and description are required.', 'danger');
+    if (!this.editingTask.title) {
+      this.showToast('Title is required.', 'danger');
+      return;
+    }
+    if (!this.editingTask.description) {
+      this.showToast('Description is required.','danger');
+      return;
+    }
+    if (!this.editingTask.status) {
+      this.showToast('Status is required.','danger');
       return;
     }
     this.tasksService.updateTask(this.editingTask).then(() => {
