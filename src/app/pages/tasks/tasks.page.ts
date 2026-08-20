@@ -60,7 +60,7 @@ export class TasksPage {
     });
   }
 
-  toggleComplete(task: Task, event: any) {
+  toggleComplete(task: Task, event: CustomEvent) {
     task.status = event.detail.value;
     this.tasksService.updateTask(task).then(() => {
       this.loadTasks();
