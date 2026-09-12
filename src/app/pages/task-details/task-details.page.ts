@@ -31,11 +31,13 @@ export class TaskDetailsPage implements OnInit {
   }
 
   openEditForm(task: Task) {
+    this.closeDatePicker();
     this.editingTask = { ...task };
     this.showEditModal = true;
   }
 
   cancelEdit() {
+    this.closeDatePicker();
     this.editingTask = null;
     this.showEditModal = false;
   }
@@ -78,6 +80,14 @@ export class TaskDetailsPage implements OnInit {
       this.showToast('Task deleted successfully.', 'success');
       this.goBack();
     });
+  }
+
+  openDatePicker() {
+    this.tasksService.openDatePicker();
+  }
+
+  closeDatePicker() {
+    this.tasksService.closeDatePicker();
   }
 
 }

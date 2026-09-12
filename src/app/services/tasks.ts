@@ -28,7 +28,7 @@ export class Tasks {
     return this.storageReady;
   }
 
-    async addTask(task: Task): Promise<Task> {
+    async addTask(task: Task) {
       await this.ready();
       const tasks: Task[] = await this.storage.get(TASKS_KEY);
       const existing: Task[] = tasks || [];
@@ -38,16 +38,16 @@ export class Tasks {
       return task;
     }
 
-    async getTasks(): Promise<Task[]> {
+    async getTasks() {
       await this.ready();
       const tasks = await this.storage.get(TASKS_KEY);
       return tasks || [];
     }
 
-    async updateTask(task: Task): Promise<Task | null> {
+    async updateTask(task: Task){
       await this.ready();
       const tasks: Task[] = await this.storage.get(TASKS_KEY);
-      if (!tasks || tasks.length === 0) {
+      if (!tasks) {
         return null;
       }
       const newTasks: Task[] = [];
@@ -61,10 +61,10 @@ export class Tasks {
       return this.storage.set(TASKS_KEY, newTasks);
     }
 
-    async deleteTask(taskId: number): Promise<void>{
+    async deleteTask(taskId: number) {
       await this.ready();
       const tasks: Task[] = await this.storage.get(TASKS_KEY);
-      if (!tasks || tasks.length === 0) {
+      if (!tasks) {
         return;
       }
       const toKeep: Task[] = [];
@@ -84,11 +84,11 @@ export class Tasks {
      this.isDatePickerOpen = false;
     }
 
-    async getTaskByID(taskId: number): Promise<Task | null> {
+    async getTaskByID(taskId: number) {
       await this.ready();
       const tasks: Task[] = await this.storage.get(TASKS_KEY);
-      const task = (tasks || []).find(t => t.id === taskId);
-      return task || null;
+      const task = tasks.find(t => t.id === taskId);
+      return task;
     }
 
     goBack() {

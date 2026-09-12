@@ -16,7 +16,7 @@ export class TasksPage {
   showEditModal = false;
 
   constructor(
-    private tasksService: Tasks, 
+    public tasksService: Tasks, 
     private toastController: ToastController,
     private alertController: AlertController) {
   }
@@ -32,11 +32,13 @@ export class TasksPage {
   }
 
   openEditForm(task: Task) {
+    this.closeDatePicker();
     this.editingTask = { ...task };
     this.showEditModal = true;
   }
 
   cancelEdit() {
+    this.closeDatePicker();
     this.editingTask = null;
     this.showEditModal = false;
   }
@@ -106,5 +108,16 @@ export class TasksPage {
       color: color
     });
     toast.present();
+  }
+  openDatePicker() {
+    this.tasksService.openDatePicker();
+  }
+
+  closeDatePicker() {
+    this.tasksService.closeDatePicker();
+  }
+
+  goBack() {
+    this.tasksService.goBack();
   }
 }
